@@ -11,6 +11,8 @@ public class Plane : MonoBehaviour
     Rigidbody2D rigidBody;
     Vector2 currentPosition;
     public float speed = 1;
+    public AnimationCurve landing;
+    public float landingTimer;
 
     void Start()
     {
@@ -35,6 +37,17 @@ public class Plane : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKey(KeyCode.Space))
+        {
+            landingTimer += 0.005f * Time.deltaTime;
+            float interpolation = landing.Evaluate(landingTimer);
+            if(transform.localScale.z < 0.1f)
+            {
+                Destroy(gameObject);
+            }
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, interpolation);
+        }
+
         lineRenderer.SetPosition(0, currentPosition);
         if(points.Count > 0 )
         {
@@ -70,5 +83,10 @@ public class Plane : MonoBehaviour
             lineRenderer.SetPosition(lineRenderer.positionCount - 1, newPosition);
             lastPosition = newPosition;
         }
+    }
+
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }
