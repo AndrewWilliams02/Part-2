@@ -10,7 +10,7 @@ public class Plane : MonoBehaviour
     LineRenderer lineRenderer;
     Rigidbody2D rigidBody;
     Vector2 currentPosition;
-    public float speed = 1;
+    public float speed;
     public AnimationCurve landing;
     public float landingTimer;
 
@@ -21,6 +21,7 @@ public class Plane : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
 
         rigidBody = GetComponent<Rigidbody2D>();
+        speed = Random.Range(1, 4);
     }
 
     void FixedUpdate()
@@ -87,6 +88,6 @@ public class Plane : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 }
