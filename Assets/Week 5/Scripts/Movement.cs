@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     Vector2 direction;
     bool moving;
     bool alive = true;
-    public double hitTime;
+    public double attackTime;
     public double currentTime;
     public float health = 3;
     public float speed = 2.5f;
@@ -49,21 +49,15 @@ public class Movement : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(1))
             {
-                health -= 1;
                 animator.SetFloat("Health", health);
-                animator.SetBool("Hit", true);
-                hitTime = Time.time;
-                hitTime += 0.26;
-                if (health <= 0)
-                {
-                    alive = false;
-                    animator.SetBool("Alive", alive);
-                }
+                animator.SetBool("Attack", true);
+                attackTime = Time.time;
+                attackTime += 0.65;
             }
         }
-        if (currentTime >= hitTime)
+        if (currentTime >= attackTime)
         {
-            animator.SetBool("Hit", false);
+            animator.SetBool("Attack", false);
         }
     }
 }
