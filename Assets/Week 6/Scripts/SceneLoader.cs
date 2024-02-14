@@ -13,4 +13,12 @@ public class SceneLoader : MonoBehaviour
         int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
         SceneManager.LoadScene(nextSceneIndex);
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            LoadNextScene();
+        }
+    }
 }
